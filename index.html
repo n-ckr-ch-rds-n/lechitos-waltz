@@ -58,17 +58,18 @@ function keyUpHandler(e) {
 
 
 function drawLechito() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(lechito, lechitoX, lechitoY, 70, 70)
-  if (rightPressed) {
+  if (rightPressed && lechitoX < canvas.width-70) {
     lechitoX += 10;
   }
-  else if (leftPressed) {
+  else if (leftPressed && lechitoX > 0) {
     lechitoX -= 10;
   }
-  else if (upPressed) {
+  else if (upPressed && lechitoY > 0) {
     lechitoY -= 10;
   }
-  else if (downPressed) {
+  else if (downPressed && lechitoY < canvas.height-70) {
     lechitoY += 10;
   }
 
