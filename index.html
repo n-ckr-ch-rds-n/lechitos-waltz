@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lechito's Waltz</title>
+  <link rel="stylesheet" href="style.css">
+  <script></script>
+</head>
+<body>
+<canvas id="myCanvas" width="650" height="500"></canvas>
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var lechito = new Image();
+lechito.src = "./lechito.png";
+var lechitoX = canvas.width/2;
+var lechitoY = canvas.height-100;
+lechito.onload = function() {
+  drawLechito();
+}
+var rightPressed = false;
+var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+    else if(e.keyCode == 38) {
+        upPressed = true;
+    }
+    else if(e.keyCode == 40) {
+        downPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+    else if(e.keyCode == 38) {
+        upPressed = false;
+    }
+    else if(e.keyCode == 40) {
+        downPressed = false;
+    }
+}
+
+
+function drawLechito() {
+  ctx.drawImage(lechito, lechitoX, lechitoY, 70, 70)
+  if (rightPressed) {
+    lechitoX += 10;
+  }
+  else if (leftPressed) {
+    lechitoX -= 10;
+  }
+  else if (upPressed) {
+    lechitoY -= 10;
+  }
+  else if (downPressed) {
+    lechitoY += 10;
+  }
+
+  requestAnimationFrame(drawLechito);
+}
+
+drawLechito();
+
+</script>
+</body>
+</html>
