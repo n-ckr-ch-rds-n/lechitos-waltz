@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <title>Lechito's Waltz</title>
   <link rel="stylesheet" href="style.css">
-  <script></script>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 </head>
 <body>
+<h1>Lechito's Waltz</h1>
 <canvas id="myCanvas" width="650" height="500"></canvas>
 <script>
 var canvas = document.getElementById("myCanvas");
@@ -34,7 +35,7 @@ var bumpHeight = 10;
 var bumpRadius = 10;
 var bumps = [];
 for(var i = 0; i < bumpNumber; i++){
-  bumps[i] = { x: Math.floor(Math.random() * 650), y: Math.floor(Math.random() * 500), eaten: false }
+  bumps[i] = { x: Math.floor(Math.random() * 600), y: Math.floor(Math.random() * 450), eaten: false }
 }
 
 var score = 0;
@@ -127,6 +128,11 @@ function checkGameOver() {
   if (lechitoX === potatoX && lechitoY === potatoY) {
     alert("GAME OVER");
     document.location.reload();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  } else if (score === bumpNumber) {
+    alert("Congratulations!! YOU WIN!!!")
+    document.location.reload();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
 
@@ -135,7 +141,7 @@ function eatBumps() {
     if ((bump.x <= lechitoX + 10 && bump.x >= lechitoX - 10) && (bump.y <= lechitoY + 70 && bump.y >= lechitoY - 10)) {
       if (bump.eaten === false) {
         bump.eaten = true;
-        score += 1;  
+        score += 1;
       }
     }
   })
