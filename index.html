@@ -97,12 +97,21 @@ function drawPotato() {
   else if (lechitoY < potatoY) {
     potatoY -= 5;
   }
+
+}
+
+function checkGameOver() {
+  if (lechitoX === potatoX && lechitoY === potatoY) {
+    alert("GAME OVER");
+    document.location.reload();
+  }
 }
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawLechito();
   drawPotato();
+  checkGameOver();
   requestAnimationFrame(draw);
 }
 
