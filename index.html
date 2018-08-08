@@ -28,6 +28,26 @@ potato.onload = function() {
   drawPotato();
 }
 
+var bumpNumber = 7;
+var bumpWidth = 10;
+var bumpHeight = 10;
+var bumpRadius = 10;
+var bumps = [];
+for(var i = 0; i < bumpNumber; i++){
+  bumps[i] = { x: Math.floor(Math.random() * 650), y: Math.floor(Math.random() * 500) }
+}
+
+function drawBumps() {
+  bumps.forEach(function(bump) {
+    ctx.beginPath();
+    ctx.arc(bump.x, bump.y, bumpRadius, 0, Math.PI*2);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+  })
+}
+
+
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
@@ -111,6 +131,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawLechito();
   drawPotato();
+  drawBumps();
   checkGameOver();
   requestAnimationFrame(draw);
 }
