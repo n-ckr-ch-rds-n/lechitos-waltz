@@ -34,19 +34,10 @@ var bumpHeight = 10;
 var bumpRadius = 10;
 var bumps = [];
 for(var i = 0; i < bumpNumber; i++){
-  bumps[i] = { x: Math.floor(Math.random() * 650), y: Math.floor(Math.random() * 500) }
+  bumps[i] = { x: Math.floor(Math.random() * 650), y: Math.floor(Math.random() * 500), eaten: false }
 }
 
-function drawBumps() {
-  bumps.forEach(function(bump) {
-    ctx.beginPath();
-    ctx.arc(bump.x, bump.y, bumpRadius, 0, Math.PI*2);
-    ctx.fillStyle = "white";
-    ctx.fill();
-    ctx.closePath();
-  })
-}
-
+var score = 0;
 
 var rightPressed = false;
 var leftPressed = false;
@@ -89,16 +80,16 @@ function keyUpHandler(e) {
 
 function drawLechito() {
   ctx.drawImage(lechito, lechitoX, lechitoY, 100, 100)
-  if (rightPressed && lechitoX < canvas.width-70) {
+  if (rightPressed && lechitoX < canvas.width-50) {
     lechitoX += 10;
   }
-  else if (leftPressed && lechitoX > 0) {
+  else if (leftPressed && lechitoX > -50) {
     lechitoX -= 10;
   }
-  else if (upPressed && lechitoY > 0) {
+  else if (upPressed && lechitoY > -50) {
     lechitoY -= 10;
   }
-  else if (downPressed && lechitoY < canvas.height-70) {
+  else if (downPressed && lechitoY < canvas.height-50) {
     lechitoY += 10;
   }
 }
@@ -120,6 +111,18 @@ function drawPotato() {
 
 }
 
+function drawBumps() {
+  bumps.forEach(function(bump) {
+    if (bump.eaten === false) {
+      ctx.beginPath();
+      ctx.arc(bump.x, bump.y, bumpRadius, 0, Math.PI*2);
+      ctx.fillStyle = "white";
+      ctx.fill();
+      ctx.closePath();
+    }
+  })
+}
+
 function checkGameOver() {
   if (lechitoX === potatoX && lechitoY === potatoY) {
     alert("GAME OVER");
@@ -127,13 +130,32 @@ function checkGameOver() {
   }
 }
 
+function eatBumps() {
+  bumps.forEach(function(bump) {
+    if ((bump.x <= lechitoX + 10 && bump.x >= lechitoX - 10) && (bump.y <= lechitoY + 70 && bump.y >= lechitoY - 10)) {
+      if (bump.eaten === false) {
+        bump.eaten = true;
+        score += 1;  
+      }
+    }
+  })
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawLechito();
   drawPotato();
   drawBumps();
+  eatBumps();
+  printScore();
   checkGameOver();
   requestAnimationFrame(draw);
+}
+
+function printScore() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText("Score: "+score, 8, 20);
 }
 
 draw();
