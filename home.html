@@ -127,18 +127,18 @@ function drawBumps() {
 function checkGameOver() {
   if (lechitoX === potatoX && lechitoY === potatoY) {
     alert("GAME OVER");
-    document.location.reload();
+    window.location.reload(true);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   } else if (score === bumpNumber) {
     alert("Congratulations!! YOU WIN!!!")
-    document.location.reload();
+    window.location.reload(true);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
 
 function eatBumps() {
   bumps.forEach(function(bump) {
-    if ((bump.x <= lechitoX + 10 && bump.x >= lechitoX - 10) && (bump.y <= lechitoY + 70 && bump.y >= lechitoY - 10)) {
+    if ((bump.x <= lechitoX + 20 && bump.x >= lechitoX - 5) && (bump.y <= lechitoY + 70 && bump.y >= lechitoY - 20)) {
       if (bump.eaten === false) {
         bump.eaten = true;
         score += 1;
